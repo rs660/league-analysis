@@ -1,4 +1,4 @@
-# An Analysis of Student Performance in DSC 80
+# My Project Title
 
 by Suraj Rampure (rampure@ucsd.edu)
 
@@ -6,12 +6,21 @@ by Suraj Rampure (rampure@ucsd.edu)
 
 ## Introduction
 
-In this project, we studied the effectiveness of using `babypandas` in DSC 10.
+In this project, we studied the effectiveness of spice challenges in building team morale.
 
 ---
 
 ## Cleaning and EDA
 
-<something goes here>
+<iframe src="assets/10-80-enrollment.html" width=800 height=600 frameBorder=0></iframe>
+
+---
+
+## Assessment of Missingness
+
+---
+
+## Hypothesis Testing
+
 
 ---
