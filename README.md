@@ -2,6 +2,8 @@
 
 by Suraj Rampure (rampure@ucsd.edu)
 
+***Note***: If you choose a repo name and title as uninspired as the ones here, I will be quite sad.
+
 ---
 
 ## Introduction
@@ -18,7 +20,11 @@ In this project, we studied the effectiveness of spice challenges in building te
 
 ## Assessment of Missingness
 
-Here's what a Markdown table looks like. Note that the code for this table was generated _automatically_ from a DataFrame, using `print(counts[['Quarter', 'Count']].head().to_markdown(index=False))`.
+Here's what a Markdown table looks like. Note that the code for this table was generated _automatically_ from a DataFrame, using
+
+```py
+print(counts[['Quarter', 'Count']].head().to_markdown(index=False))
+```
 
 | Quarter     |   Count |
 |:------------|--------:|
