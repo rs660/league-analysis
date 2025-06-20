@@ -7,7 +7,7 @@
 # Introduction
 
 ### Motivation
-League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we explore the many different pre-game and early-game metrics that can accurately predict match outcomes in LoL games. Our objective is to understand how different in-game factors impact team performance in-game. Empirical insights offer fans and analysts a quantative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they are casual watchers or invested sportsbettors. 
+League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we analyze the many different pre/early-game performance metrics in LoL games and their impact. Our ultimate objective is to find a combination of in-game factors that help us accurately predict game outcomes. These empirical insights offer fans and analysts a quantative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they are casual watchers or invested sportsbettors. 
 
 In particular, we will be investigating this overarching question: 
 **which early-game (and implicitly, pre-game) metrics determine game outcomes?**
@@ -29,8 +29,8 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 - `participantid`: Identifies players/teams given a `gameid`.
 - `teamname`: The name of the team. 
 - `result`: The outcome of the match (win/loss).
-- `side`: Blue / Red
-- `league`: The affiliated league the match was played in separated by region or tournament (e.g. LCK, LPL, Worlds).
+- `side`: Blue / Red.
+- `league`: The affiliated league the match was played; either separated by region or tournament (e.g. LCK, LPL, Worlds).
 - `goldat10`: Team's total gold @ 10 minutes into the game.
 - `xpat10`: Team's total XP @ 10 minutes into the game.
 - `csat10`: Team's total creep score (CS) @ 10 minutes into the game.
@@ -84,11 +84,11 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 
 ## Univariate Analysis
 
-After refining our features, we can finally do analysis. The plot below shows the *distribution of CS/min @ 10 minutes* for each team within the dataset. We generated this plot by taking the `csat10` feature and dividing it by 10 to give us CS/min, an often mentioned metric in LoL gameplay. High CS/min is a sought after metric by many players as CS directly translates to a gain in gold and XP as well.
+After refining our features, we can finally do analysis. The plot below shows the *distribution of CS/min @ 10 minutes* for each team. High CS/min is a sought after metric by many players as CS directly translates to a gain in gold and XP as well.
 
 <iframe src="assets/uni1.html" width="900" height="450" frameborder="0"></iframe>
 
- Team CS/min seem to cluster around `30-35` CS/min. This averages to around `7.5-8.5` CS/min for each non-support player (since supports don't farm), showcasing prioritization of early, consistent farming in professional play. Outliers in the distribution highlights varying game dynamics; low early CS/min likely corresponds to games with a lot of early skirmishes or games where one team is dominated in lane, whereas high CS games indicate high lane dominance or a relatively low action early game.
+ Team CS/min seem to cluster around `30-35` CS/min. This averages to around `7.5-8.5` CS/min for each non-support player (since supports don't farm), showcasing prioritization of early, consistent farming in professional play. Outliers in the distribution highlights varying game dynamics. Low early CS/min likely corresponds to games with a lot of early skirmishes or games where one team is dominated in lane; high CS games indicate high lane dominance or a relatively low action early game.
 
  Below we have another distribution plot, but this time, it is the *distribution of kills @ 10 minutes*.
 
@@ -102,4 +102,11 @@ Below is the *distribution of gold difference among game winners vs. losers*. I 
 
 <iframe src="assets/bivar1.html" width="900" height="450" frameborder="0"></iframe>
 
-As expected, there's a clear relationship between positive gold difference and winning, indicating that teams with a gold lead are more likely to win the game. However, there are small overlaps between the two boxes and the handful of extreme outliers showcases that winning is more than just early gold.
+As expected, there's a clear relationship between positive gold difference and winning, indicating that teams with a gold lead are more likely to win the game. However, the visible overlaps between the two boxes' upper/lower quartiles and the handful of extreme outliers highlight that winning is more than just early gold. Using my own heuristic, other less quantifiable metrics that would lead to wins would be map/objective control. Below is an attempt of illustrating map control in terms of early control of river objectives: a pivot table of winrates for teams that secure first river objectives.
+
+|                |  No 1st Herald |  1st Herald |
+| -------------- | -------------- | ----------- |
+|  No 1st Dragon |   0.323357     |   0.504889  |
+|    1st Dragon  |   0.495114     |   0.676933  |
+
+As shown above, securing both river objectives correlates with a positive win rate. Although securing first herald seem to have a slight edge over securing first dragon. This is likely due to the mechanics of the herald (being able to take down towers and plating) which can facilitate early snowballs. However, the utility of herald falls off after its use, whereas the stat-boosts obtained from slaining dragon remains the entire game. So I suspect the longer the game lasts, the more useful first dragon as a predictive metric becomes.
