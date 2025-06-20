@@ -60,6 +60,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
     <li>`firsttothreetowers`: Indicates if corresponding team was first to destroy 3 towers.</li>
     <li>`turretplates`: The number of turret plates destroyed by corresponding team.</li>
 </ul>
+
 ---
 
 ## Cleaning and Exploratory Data Analysis
