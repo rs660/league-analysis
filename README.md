@@ -30,7 +30,7 @@ The 163 columns consists of:
 Relevant 31 columns to our stated question, in the context of only rows corresponding to teams:
 <ul>
     <li>`gameid`: Unique idenfier for the game.</li>
-    <li>`participantid`: Identifies players/teams given a `gameid`.<li>
+    <li>`participantid`: Identifies players/teams given a `gameid`.</li>
     <li>`teamname`: The name of the team. </li>
     <li>`result`: The outcome of the match (win/loss).</li>
     <li>`side`: Blue / Red</li>
