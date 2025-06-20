@@ -65,6 +65,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 
 ## Cleaning and Exploratory Data Analysis
 # Data Cleaning
+
 <ol>
     <li>Selected only relevant rows.
         <ol>
@@ -91,7 +92,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
     </li>
 </ol>
 
-<b>Dataset Overview After Refinement</b>
+# Dataset Overview After Refinement
 
 <iframe src="assets/cleaned.html" width="800" height="400" frameborder="0">
 </iframe>
