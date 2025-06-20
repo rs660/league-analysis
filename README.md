@@ -63,38 +63,31 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 ### Data Cleaning
 
 - Selected only relevant rows.
-    - Discarded player-level entries (any row with `participantid not in [100, 200]`)</li>
-    - Discarded rows featuring games with a duration less than 15 minutes to fully capture only games that actually experienced early game; after all, we can't analyze early-game metrics without an early-game.</li>
+    - Discarded player-level entries (any row with `participantid not in [100, 200]`)
+    - Discarded rows featuring games with a duration less than 15 minutes to fully capture only games that actually experienced early game; after all, we can't analyze early-game metrics without an early-game.
 - Selected only relevant features shown above.
     - Dropped columns that were all `NaN` or empty. These are a result of pruned rows (e.g., `positionname`, which is only relevant to players) & unreleased in-game content (e.g., void grubs, which were not in the game in 2022).
-    - Dropped columns with repetitive information. Each `gameid` has two rows corresponding to each team; columns with the `opp` prefix were double counted by both rows for a given `gameid`.</li>
-    - Dropped columns containing strictly metadata (e.g. 'url', 'teamid', etc.).</li>
-    - Dropped columns related to pre-game draft phase due to patch-to-patch meta fluctuations and frequent balance changes, which makes champion pick/ban less important in observing longer-term trends.</li>
+    - Dropped columns with repetitive information. Each `gameid` has two rows corresponding to each team; columns with the `opp` prefix were double counted by both rows for a given `gameid`.
+    - Dropped columns containing strictly metadata (e.g. 'url', 'teamid', etc.).
+    - Dropped columns related to pre-game draft phase due to patch-to-patch meta fluctuations and frequent balance changes, which makes champion pick/ban less important in observing longer-term trends.
     - Dropped any column containing summary metrics or metrics that are only present past 20 minutes since we are only concerned with *early* game metrics.
-- Handled missing value through pruning since there were a minimal amount of erroneous data collection.
-    - 2 rows had `firstmidtower` be `NaN` out of 21312 rows.</li>
-    - 9 rows had `teamname` be `NaN` out of 21312 rows.</li>
-    - 88 rows had `turretplates` be `NaN` out of 21312 rows.</li>
-    - Total of 99 rows out of 21312 were erroneous and pruned (0.46% of the dataset)</li>
+- Handled missing value through pruning due to minimal amount of erronenous data.
+    - 2 rows had `firstmidtower` be `NaN` out of 21312 rows.
+    - 9 rows had `teamname` be `NaN` out of 21312 rows.
+    - 88 rows had `turretplates` be `NaN` out of 21312 rows.
+    - Total of 99 rows out of 21312 were erroneous and pruned (0.46% of the dataset)
 
 ### Dataset Overview After Refinement
 
-<iframe src="assets/cleaned.html" width="800" height="400" frameborder="0">
+<iframe src="assets/cleaned.html" class='table-wrapper' width="800" height="400" frameborder="0">
 </iframe>
 
 # Univariate Analysis
 ---
 After refining our features, we can finally do analysis. The plot below shows the *distribution of CS/min* for each team within the dataset. We generated this plot by taking the `csat10` feature and dividing it by 10 to give us CS/min, an often mentioned metric in LoL gameplay. High CS/min is a sought after metric by many players as CS directly translates to a gain in gold and XP as well.
-<iframe
- src="assets/uni1.html"
- width="900"
- height="400"
- frameborder="0"
- ></iframe>
+
+<iframe src="assets/uni1.html" width="900" height="500" frameborder="0"></iframe>
+
  Team CS/min seem to cluster around `30-35` CS/min. This averages to around `7.5-8.5` CS/min for each non-support player (since supports don't farm), showcasing prioritization of early, consistent farming in professional play. Outliers in the distribution highlights varying game dynamics; low early CS/min likely corresponds to games with a lot of early skirmishes or games where one team is dominated in lane, whereas high CS games indicate high lane dominance or a relatively low action early game.
-<iframe
- src="assets/uni2.html"
- width="900"
- height="400"
- frameborder="0"
- ></iframe>
+
+<iframe src="assets/uni2.html" width="900" height="500" frameborder="0"></iframe>
