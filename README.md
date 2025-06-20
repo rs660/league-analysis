@@ -89,6 +89,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
             <li>Total of 99 rows out of 21312 were erroneous and pruned (0.46% of the dataset)</li>
         </ul>
     </li>
+</ol>
 
 <b>Dataset Overview After Refinement</b>
 
@@ -101,7 +102,6 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 | KT Rolster Challengers | 1 | Blue | LCKC | 15466.0 | 19600.0 | 368.0 | -103.0 | 813.0 | 13.0 | 0.0 | 0.0 | 1.0 | 24795.0 | 31342.0 | 560.0 | 1191.0 | 2298.0 | 15.0 | 3.0 | 8.0 | 1.0 | 0.0 | 1 | 0 | 1 | 1 | 1 | 1.0 | -1.0 | 2.0 |
 | Gen.G Global Academy | 0 | Red | LCKC | 15569.0 | 18787.0 | 355.0 | 103.0 | -813.0 | -13.0 | 1.0 | 1.0 | 0.0 | 23604.0 | 29044.0 | 545.0 | -1191.0 | -2298.0 | -15.0 | 1.0 | 1.0 | 3.0 | 1.0 | 0 | 1 | 0 | 0 | 0 | 4.0 | 1.0 | -2.0 |
 
-</ol>
 
 # Univariate Analysis
 ---
