@@ -86,8 +86,8 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 ---
 After refining our features, we can finally do analysis. The plot below shows the *distribution of CS/min* for each team within the dataset. We generated this plot by taking the `csat10` feature and dividing it by 10 to give us CS/min, an often mentioned metric in LoL gameplay. High CS/min is a sought after metric by many players as CS directly translates to a gain in gold and XP as well.
 
-<iframe src="assets/uni1.html" width="900" height="500" frameborder="0"></iframe>
+<iframe src="assets/uni1.html" width="900" height="475" frameborder="0"></iframe>
 
  Team CS/min seem to cluster around `30-35` CS/min. This averages to around `7.5-8.5` CS/min for each non-support player (since supports don't farm), showcasing prioritization of early, consistent farming in professional play. Outliers in the distribution highlights varying game dynamics; low early CS/min likely corresponds to games with a lot of early skirmishes or games where one team is dominated in lane, whereas high CS games indicate high lane dominance or a relatively low action early game.
 
-<iframe src="assets/uni2.html" width="900" height="500" frameborder="0"></iframe>
+<iframe src="assets/uni2.html" width="900" height="475" frameborder="0"></iframe>
