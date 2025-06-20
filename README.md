@@ -94,16 +94,14 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 <b>Dataset Overview After Refinement</b>
 
 
-| teamname | result | side | league | goldat10 | xpat10 | csat10 | golddiffat10 | xpdiffat10 | csdiffat10 | killsat10 | assistsat10 | deathsat10 | goldat15 | xpat15 | csat15 | golddiffat15 | xpdiffat15 | csdiffat15 | killsat15 | assistsat15 | deathsat15 | firstblood | firstdragon | firstherald | firsttower | firstmidtower | firsttothreetowers | turretplates | kdat10 | kdat15 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| BRION Challengers | 0 | Blue | LCKC | 16218.0 | 18213.0 | 322.0 | 1523.0 | 137.0 | -8.0 | 3.0 | 5.0 | 0.0 | 24806.0 | 28001.0 | 487.0 | 107.0 | -1617.0 | -23.0 | 5.0 | 10.0 | 6.0 | 1.0 | 0 | 1 | 1 | 1 | 1 | 5.0 | 3.0 | -1.0 |
-| Nongshim Esports Academy | 1 | Red | LCKC | 14695.0 | 18076.0 | 330.0 | -1523.0 | -137.0 | 8.0 | 0.0 | 0.0 | 3.0 | 24699.0 | 29618.0 | 510.0 | -107.0 | 1617.0 | 23.0 | 6.0 | 18.0 | 5.0 | 0.0 | 1 | 0 | 0 | 0 | 0 | 0.0 | -3.0 | 1.0 |
-| T1 Esports Academy | 0 | Blue | LCKC | 14939.0 | 17462.0 | 317.0 | -1619.0 | -1586.0 | -27.0 | 1.0 | 1.0 | 3.0 | 23522.0 | 28848.0 | 533.0 | -1763.0 | -906.0 | -22.0 | 1.0 | 1.0 | 3.0 | 0.0 | 0 | 1 | 0 | 0 | 0 | 2.0 | -2.0 | -2.0 |
-| Liiv SANDBOX Youth | 1 | Red | LCKC | 16558.0 | 19048.0 | 344.0 | 1619.0 | 1586.0 | 27.0 | 3.0 | 3.0 | 1.0 | 25285.0 | 29754.0 | 555.0 | 1763.0 | 906.0 | 22.0 | 3.0 | 3.0 | 1.0 | 1.0 | 1 | 0 | 1 | 1 | 1 | 3.0 | 2.0 | 2.0 |
-| KT Rolster Challengers | 1 | Blue | LCKC | 15466.0 | 19600.0 | 368.0 | -103.0 | 813.0 | 13.0 | 0.0 | 0.0 | 1.0 | 24795.0 | 31342.0 | 560.0 | 1191.0 | 2298.0 | 15.0 | 3.0 | 8.0 | 1.0 | 0.0 | 1 | 0 | 1 | 1 | 1 | 1.0 | -1.0 | 2.0 |
-| Gen.G Global Academy | 0 | Red | LCKC | 15569.0 | 18787.0 | 355.0 | 103.0 | -813.0 | -13.0 | 1.0 | 1.0 | 0.0 | 23604.0 | 29044.0 | 545.0 | -1191.0 | -2298.0 | -15.0 | 1.0 | 1.0 | 3.0 | 1.0 | 0 | 1 | 0 | 0 | 0 | 4.0 | 1.0 | -2.0 |
-
-
+|  | teamname | result | side | league | goldat10 | xpat10 | csat10 | golddiffat10 | xpdiffat10 | csdiffat10 | killsat10 | assistsat10 | deathsat10 | goldat15 | xpat15 | csat15 | golddiffat15 | xpdiffat15 | csdiffat15 | killsat15 | assistsat15 | deathsat15 | firstblood | firstdragon | firstherald | firsttower | firstmidtower | firsttothreetowers | turretplates | kdat10 | kdat15 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ('ESPORTSTMNT01_2690210', 100) | BRION Challengers | 0 | Blue | LCKC | 16218.0 | 18213.0 | 322.0 | 1523.0 | 137.0 | -8.0 | 3.0 | 5.0 | 0.0 | 24806.0 | 28001.0 | 487.0 | 107.0 | -1617.0 | -23.0 | 5.0 | 10.0 | 6.0 | 1.0 | 0 | 1 | 1 | 1 | 1 | 5.0 | 3.0 | -1.0 |
+| ('ESPORTSTMNT01_2690210', 200) | Nongshim Esports Academy | 1 | Red | LCKC | 14695.0 | 18076.0 | 330.0 | -1523.0 | -137.0 | 8.0 | 0.0 | 0.0 | 3.0 | 24699.0 | 29618.0 | 510.0 | -107.0 | 1617.0 | 23.0 | 6.0 | 18.0 | 5.0 | 0.0 | 1 | 0 | 0 | 0 | 0 | 0.0 | -3.0 | 1.0 |
+| ('ESPORTSTMNT01_2690219', 100) | T1 Esports Academy | 0 | Blue | LCKC | 14939.0 | 17462.0 | 317.0 | -1619.0 | -1586.0 | -27.0 | 1.0 | 1.0 | 3.0 | 23522.0 | 28848.0 | 533.0 | -1763.0 | -906.0 | -22.0 | 1.0 | 1.0 | 3.0 | 0.0 | 0 | 1 | 0 | 0 | 0 | 2.0 | -2.0 | -2.0 |
+| ('ESPORTSTMNT01_2690219', 200) | Liiv SANDBOX Youth | 1 | Red | LCKC | 16558.0 | 19048.0 | 344.0 | 1619.0 | 1586.0 | 27.0 | 3.0 | 3.0 | 1.0 | 25285.0 | 29754.0 | 555.0 | 1763.0 | 906.0 | 22.0 | 3.0 | 3.0 | 1.0 | 1.0 | 1 | 0 | 1 | 1 | 1 | 3.0 | 2.0 | 2.0 |
+| ('ESPORTSTMNT01_2690227', 100) | KT Rolster Challengers | 1 | Blue | LCKC | 15466.0 | 19600.0 | 368.0 | -103.0 | 813.0 | 13.0 | 0.0 | 0.0 | 1.0 | 24795.0 | 31342.0 | 560.0 | 1191.0 | 2298.0 | 15.0 | 3.0 | 8.0 | 1.0 | 0.0 | 1 | 0 | 1 | 1 | 1 | 1.0 | -1.0 | 2.0 |
+| ('ESPORTSTMNT01_2690227', 200) | Gen.G Global Academy | 0 | Red | LCKC | 15569.0 | 18787.0 | 355.0 | 103.0 | -813.0 | -13.0 | 1.0 | 1.0 | 0.0 | 23604.0 | 29044.0 | 545.0 | -1191.0 | -2298.0 | -15.0 | 1.0 | 1.0 | 3.0 | 1.0 | 0 | 1 | 0 | 0 | 0 | 4.0 | 1.0 | -2.0 |
 
 
 # Univariate Analysis
@@ -111,14 +109,14 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 After refining our features 
  <iframe
  src="assets/uni1.html"
- width="600"
+ width="900"
  height="600"
  frameborder="0"
  ></iframe>
 
 <iframe
  src="assets/uni2.html"
- width="600"
- height="500"
+ width="900"
+ height="600"
  frameborder="0"
  ></iframe>
