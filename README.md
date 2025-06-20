@@ -1,14 +1,12 @@
-# My Project Title
+# FF15 or Winnable? Formulating League Of Legends Win Probability using Early Game Metrics
 
-by Suraj Rampure (rampure@ucsd.edu)
-
-***Note***: If you choose a repo name and title as uninspired as the ones here, I will be quite sad.
+**Author**: Alvin Hatcher (alvinhat@umich.edu)
 
 ---
 
 ## Introduction
 
-In this project, we studied the effectiveness of spice challenges in building team morale.
+In this project, we explore the many different pre-game and early-game metrics that can accurate predict match outcomes in League of Legends games. Our objective is to understand how different in-game factors impacts performance in League of Legends esports. In particular, which early-game (and implicitly, pre-game) metrics determine game outcomes?
 
 ---
 
