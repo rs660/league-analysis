@@ -6,34 +6,34 @@
 
 ## Introduction
 ### Motivation
-League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we explore the many different pre-game and early-game metrics that can accurate predict match outcomes in LoL games. Our objective is to understand how different in-game factors impacts team performance in-game. Empirical insights offer fans and analysts a quantative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they be casual watchers or sportsbettors. 
+League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we explore the many different pre-game and early-game metrics that can accurately predict match outcomes in LoL games. Our objective is to understand how different in-game factors impact team performance in-game. Empirical insights offer fans and analysts a quantative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they are casual watchers or invested sportsbettors. 
 
 In particular, we will be investigating this overarching question: *which early-game (and implicitly, pre-game) metrics determine game outcomes?*
 
 ### Raw Dataset Structure
-The dataset we are using is data from professional League of Legends matches in 2022. Sourced from [OraclesElixir](https://oracleselixir.com/), the dataset spans `150588` rows and `163` columns. 
+The dataset we are using is data from professional League of Legends matches in 2022. Sourced from [OraclesElixir](https://oracleselixir.com/), the dataset spans 150588 rows and 163 columns. 
 
 Each game is encoded as 12 rows.
 <ul>
-    <li> 10 for the players (filtered out in data cleaning).
-    <li> 2 for teams.
+    <li>10 for the players (filtered out in data cleaning).</li>
+    <li>2 for teams.<li>
 </ul>
 
-The `163` columns consists of:
+The 163 columns consists of:
 <ul>
     <li>Team/player information (e.g., team names, region, gameid)</li>
     <li>Pre/post-game information (e.g., outcome, draft picks/bans, game duration)</li>
     <li>In-game metrics (e.g., kills, gold earned, deaths)</li>
 </ul>
 
-Relevant `31` columns to our stated question, in the context of only rows corresponding to teams:
+Relevant 31 columns to our stated question, in the context of only rows corresponding to teams:
 <ul>
     <li>`gameid`: Unique idenfier for the game.</li>
     <li>`participantid`: Identifies players/teams given a `gameid`.
     <li>`teamname`: The name of the team. </li>
     <li>`result`: The outcome of the match (win/loss).</li>
     <li>`side`: Blue / Red</li>
-    <li>`league`: The affiliated league the match was played in separated by region or tournament. (e.g. LCK, LPL, Worlds)</li>
+    <li>`league`: The affiliated league the match was played in separated by region or tournament (e.g. LCK, LPL, Worlds).</li>
     <li>`goldat10`: Team's total gold @ 10 minutes into the game.</li>
     <li>`xpat10`: Team's total XP @ 10 minutes into the game.</li>
     <li>`csat10`: Team's total creep score (CS) @ 10 minutes into the game.</li>
@@ -62,29 +62,45 @@ Relevant `31` columns to our stated question, in the context of only rows corres
 ---
 
 ## Cleaning and Exploratory Data Analysis
+# Data Cleaning
+<ol>
+    <li>Selected only relevant rows.
+        <ol>
+            <li>Discarded player-level entries (any row with `participantid not in [100, 200]`)</li>
+            <li>Discarded rows featuring games with a duration less than 15 minutes to fully capture only games that actually experienced early game; after all, we can't analyze early-game metrics without an early-game.</li>
+        </ol>
+    </li>
+    <li>Selected only relevant features shown above.
+        <ul>
+            <li>Dropped columns that were all `NaN` or empty. These are a result of pruned rows (e.g., `positionname`, which is only relevant to players) & unreleased in-game content (e.g., void grubs, which were not in the game in 2022).</li>
+            <li>Dropped columns with repetitive information. Each `gameid` has two rows corresponding to each team; columns with the `opp` prefix were double counted by both rows for a given `gameid`.</li>
+            <li>Dropped columns containing strictly metadata (e.g. 'url', 'teamid', etc.).</li>
+            <li>Dropped columns related to pre-game draft phase due to patch-to-patch meta fluctuations and frequent balance changes, which makes champion pick/ban less important in observing longer-term trends.</li>
+            <li>Dropped any column containing summary metrics or metrics that are only present past 20 minutes since we are only concerned with *early* game metrics.</li>
+        </ul>
+    </li>
+    <li>Handled missing value through pruning since there were a minimal amount of erroneous data collection.
+        <ul>
+            <li>2 rows had `firstmidtower` be `NaN` out of 21312 rows.</li>
+            <li>9 rows had `teamname` be `NaN` out of 21312 rows.</li>
+            <li>88 rows had `turretplates` be `NaN` out of 21312 rows.</li>
+            <li>Total of 99 rows out of 21312 were erroneous and pruned (0.46% of the dataset)</li>
+        </ul>
+    </li> 
+</ol>
 
-
+# Univariate Analysis
 ---
+ <iframe
+ src="assets/uni1.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
 
-## Assessment of Missingness
-
-Here's what a Markdown table looks like. Note that the code for this table was generated _automatically_ from a DataFrame, using
-
-```py
-print(counts[['Quarter', 'Count']].head().to_markdown(index=False))
-```
-
-| Quarter     |   Count |
-|:------------|--------:|
-| Fall 2020   |       3 |
-| Winter 2021 |       2 |
-| Spring 2021 |       6 |
-| Summer 2021 |       4 |
-| Fall 2021   |      55 |
-
----
-
-## Hypothesis Testing
-
-
----
+<iframe
+ src="assets/uni2.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
