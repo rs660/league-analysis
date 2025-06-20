@@ -96,13 +96,15 @@ After refining our features, we can finally do analysis. The plot below shows th
 
 We can see that a small fraction of games see 4+ kills, and beyond 7 kills is extremely rare. This shows that early-game aggression is relatively muted in professional play and that teams rarely collect more than 3 kills in laning phase. A high kill game early on by a team potentially signals a very dominant early game and possible snowball, but for the most part, teams will "scale" (get gold -> buy items and get XP -> level up) through farming in the early stages.
 
-## Bivariate Analysis
+## Bivariate & Aggregate Feature Analysis
 
 Below is the *distribution of gold difference among game winners vs. losers*. I suspect gold difference would be a powerful predictive early-game metric.
 
 <iframe src="assets/bivar1.html" width="900" height="450" frameborder="0"></iframe>
 
-As expected, there's a clear relationship between positive gold difference and winning, indicating that teams with a gold lead are more likely to win the game. However, the visible overlaps between the two boxes' upper/lower quartiles and the handful of extreme outliers highlight that winning is more than just early gold. Using my own heuristic, other less quantifiable metrics that would lead to wins would be map/objective control. Below is an attempt of illustrating map control in terms of early control of river objectives: a pivot table of winrates for teams that secure first river objectives.
+As expected, there's a clear relationship between positive gold difference and winning, indicating that teams with a gold lead are more likely to win the game. However, the visible overlaps between the two boxes' upper/lower quartiles and the handful of extreme outliers highlight that winning is more than just early gold. 
+
+Using my own heuristic, another metric that would lead to wins would be map/objective control. Although less quantifiable, securing early river objectives is by definition having control of the map and the objectives in it. Below is an attempt of illustrating map control in terms of early control of river objectives: a pivot table of winrates for teams that secure first river objectives.
 
 |                |  No 1st Herald |  1st Herald |
 | -------------- | -------------- | ----------- |
@@ -110,3 +112,39 @@ As expected, there's a clear relationship between positive gold difference and w
 |    1st Dragon  |   0.495114     |   0.676933  |
 
 As shown above, securing both river objectives correlates with a positive win rate. Although securing first herald seem to have a slight edge over securing first dragon. This is likely due to the mechanics of the herald (being able to take down towers and plating) which can facilitate early snowballs. However, the utility of herald falls off after its use, whereas the stat-boosts obtained from slaining dragon remains the entire game. So I suspect the longer the game lasts, the more useful first dragon as a predictive metric becomes.
+
+---
+
+# Framing a Prediction Problem
+
+Our objective now is to **PREDICT** a team's win probability based on early-game metrics (pre-15 minutes). We will use knowledge of the features gained in the analysis above in order to build our build our prediction model.
+- Prediction Task Type: Non-binary Classification
+- Response Variable: win probability `[0, 1]`
+    - Motivation: win probability is linked to a lot of predictive tasks not just limited to League of Legends. For example, it has wide-ranging applications in betting and gambling.
+- Evaluation Metric: ROC-AUC.
+    - Motivation: Mainly because my response variable is already in the form needed for ROC-AUC. Although it's true that naive accuracy & confusion matrices provide a more easily interpretable performance metric, my predictive task doesn't have a fixed threshold. Therefore, ROC-AUC is still more robust/accurate for this use case and allows for more refined adjustments when developing the model.
+- All features used will be pre/early-game metrics that can only be strictly observed before 'result', therefore this problem has to be prediction and not inference.
+
+# Baseline Model
+
+Our baseline models uses logistic regression to predict the win probability of a given record.
+
+### Features
+- `killsat15` (*Quantitative*): The # of kills a team has at the 15 minute mark.
+    - Encoding method: N/A 
+    - Motivation: We chose this feature because of the potential snowball effect kills can have, and as inferred earlier in our exploratory data analysis, high-kill early games potentially lead to wins as it implies early game dominance . This feature, and the following 2 features as well, don't require any encoding as they are already numeric. Standardization does not improve performance, so we will save `StandardScaler` for our final model. 
+- `golddiffat15` (*Quantitative*): The gold difference a team has at the 15 minute mark with respect to the enemy team.
+    - Encoding method: N/A
+    - Motivation: We observed a strong, positive relationship between gold difference and winning outcomes earlier.
+- `xpdiffat15` (*Quantitative*): The gold difference a team has at the 15 minute mark with respect to the enemy team.
+    - Encoding method: N/A
+    - Motivation: From personal experience, XP leads dictate the pace of a lane. If a team has an overwhelming XP lead, they can gain control of the lanes and pressure turrets and objectives far easier than if XP was even. And unlike gold, XP doesn't have to be redeemed at base, so a team with an XP lead will always be able to push the advantage.
+
+### Model Results (accuracies are in terms of ROC-AOC accuracy):
+
+|  Model Name     |   Train Acc.   |  Test Acc.  |
+| --------------- | -------------- | ----------- |
+|  BaselineLogReg |   0.828189     |   0.826455  |
+
+### Model Analysis
+Training accuracy and testing accuracy being so tightly coupled suggests that our baseline model is underfitted. However, this makes perfect sense as it was made to be simple by design. As such, it might not have captured all of the feature vs. response relationships. Considering the intentional simplicity of the model and how we are restricted to just early-game metrics, the model in my opinion achieved a relatively strong performance. 
