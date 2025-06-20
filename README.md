@@ -82,7 +82,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 <iframe src="assets/cleaned.html" class='table-wrapper' width="800" height="400" frameborder="0">
 </iframe>
 
-# Univariate Analysis
+## Univariate Analysis
 ---
 After refining our features, we can finally do analysis. The plot below shows the *distribution of CS/min* for each team within the dataset. We generated this plot by taking the `csat10` feature and dividing it by 10 to give us CS/min, an often mentioned metric in LoL gameplay. High CS/min is a sought after metric by many players as CS directly translates to a gain in gold and XP as well.
 
