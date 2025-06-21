@@ -186,7 +186,7 @@ The final model is called `UltLogReg` and remains a **logistic regression** algo
 - `teamname` (*nominal*): The name of the team corresponding to the current record.
     - Preprocessing: `TargetEncoder` -> `PolynomialFeatures`
 
-## Model Results (ROC-AUC Accuracies & Optimal Parameters) 
+## Model Results (ROC-AUC Accuracies & Optimal Hyperparameters) 
 
 |  Model Name  | Train Acc. | Test Acc.  | LogReg λ | gold_diff_poly | gold_delta_poly | teamname_poly |         
 | ------------ | ---------- | ---------- | -------- | -------------- | --------------- | ------------- |
