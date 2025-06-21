@@ -4,7 +4,7 @@
 
 ---
 
-# Introduction
+# 👋 Introduction 👋
 
 ### Motivation
 League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we analyze the many different pre/early-game performance metrics in LoL games and their impact. Our ultimate objective is to find a combination of in-game factors that help us accurately predict game outcomes. These empirical insights offer fans and analysts a quantative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they are casual watchers or invested sportsbettors. 
@@ -58,7 +58,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 
 ---
 
-# Cleaning and Exploratory Data Analysis
+# 🔎 Cleaning and Exploratory Data Analysis 🔎
 
 ### Data Cleaning
 
@@ -82,7 +82,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 <iframe src="assets/cleaned.html" class='table-wrapper' width="800" height="400" frameborder="0">
 </iframe>
 
-## Univariate Analysis
+### Univariate Analysis
 
 After refining our features, we can finally do analysis. The plot below shows the *distribution of CS/min @ 10 minutes* for each team. High CS/min is a sought after metric by many players as CS directly translates to a gain in gold and XP as well.
 
@@ -96,13 +96,17 @@ After refining our features, we can finally do analysis. The plot below shows th
 
 We can see that a small fraction of games see 4+ kills, and beyond 7 kills is extremely rare. This shows that early-game aggression is relatively muted in professional play and that teams rarely collect more than 3 kills in laning phase. A high kill game early on by a team potentially signals a very dominant early game and possible snowball, but for the most part, teams will "scale" (get gold -> buy items and get XP -> level up) through farming in the early stages.
 
-## Bivariate & Aggregate Feature Analysis
+### Bivariate & Aggregate Feature Analysis
 
-Below is the *distribution of gold difference among game winners vs. losers*. I suspect gold difference would be a powerful predictive early-game metric.
+Below is the *distribution of gold difference among game winners vs. losers*. I suspect gold difference would be a powerful predictive early-game metric, as gold is arguably the most important resource in the game.
 
 <iframe src="assets/bivar1.html" width="900" height="450" frameborder="0"></iframe>
 
-As expected, there's a clear relationship between positive gold difference and winning, indicating that teams with a gold lead are more likely to win the game. However, the visible overlaps between the two boxes' upper/lower quartiles and the handful of extreme outliers highlight that winning is more than just early gold. 
+As expected, there's a clear relationship between positive gold difference and winning, indicating that teams with a gold lead are more likely to win the game. However, the visible overlaps between the two boxes' upper/lower quartiles and the handful of extreme outliers highlight that winning is more than just getting an early gold lead. Nonetheless, since gold is so seemingly important, let's look at other features' relationship with gold difference. 
+
+<iframe src="assets/bivar2.html" width="900" height="450" frameborder="0"></iframe>
+
+Here, we can see CS is moderately correlated with gold. Which is no surprise since it wouldn't be out of the ordinary at all if every winning metric somehow had a positive correlation with gold difference.
 
 Using my own heuristic, another metric that would lead to wins would be map/objective control. Although less quantifiable, securing early river objectives is by definition having control of the map and the objectives in it. Below is an attempt of illustrating map control in terms of early control of river objectives: a pivot table of winrates for teams that secure first river objectives.
 
@@ -115,7 +119,7 @@ As shown above, securing both river objectives correlates with a positive win ra
 
 ---
 
-# Framing a Prediction Problem
+# ❓ Framing a Prediction Problem ❓
 
 Our objective now is to **PREDICT** a team's win probability based on early-game metrics (pre-15 minutes). We will use knowledge of the features gained in the analysis above in order to build our build our prediction model.
 - Prediction Task Type: Non-binary Classification
@@ -125,22 +129,24 @@ Our objective now is to **PREDICT** a team's win probability based on early-game
     - Motivation: Mainly because my response variable is already in the form needed for ROC-AUC. Although it's true that naive accuracy & confusion matrices provide a more easily interpretable performance metric, my predictive task doesn't have a fixed threshold. Therefore, ROC-AUC is still more robust/accurate for this use case and allows for more refined adjustments when developing the model.
 - All features used will be pre/early-game metrics that can only be strictly observed before 'result', therefore this problem has to be prediction and not inference.
 
-# Baseline Model
+---
 
-Our baseline models uses logistic regression to predict the win probability of a given record.
+# 🚲 Baseline Model 🚲
+
+Our baseline models uses **logistic regression** to predict the win probability of a given record. The objective is to build a simple model which highlights basic prediction relationships between the data and our target.
 
 ### Features
 - `killsat15` (*Quantitative*): The # of kills a team has at the 15 minute mark.
-    - Encoding method: N/A 
-    - Motivation: We chose this feature because of the potential snowball effect kills can have, and as inferred earlier in our exploratory data analysis, high-kill early games potentially lead to wins as it implies early game dominance . This feature, and the following 2 features as well, don't require any encoding as they are already numeric. Standardization does not improve performance, so we will save `StandardScaler` for our final model. 
+    - Preprocessing: N/A 
+    - Motivation: We chose this feature because of the potential snowball effect kills can have, and as inferred earlier in our exploratory data analysis, high-kill early games potentially lead to wins as it implies early game dominance. Additionally, it might not be as correlated to gold difference as CS is, and since we don't want any collinearity, this makes the metric perfect for simple logistic regression. This feature, and the following 2 features as well, doesn't require any encoding as they are already numeric. Standardization does not improve performance, so we will save `StandardScaler` for our final model. 
 - `golddiffat15` (*Quantitative*): The gold difference a team has at the 15 minute mark with respect to the enemy team.
-    - Encoding method: N/A
+    - Preprocessing: N/A
     - Motivation: We observed a strong, positive relationship between gold difference and winning outcomes earlier.
 - `xpdiffat15` (*Quantitative*): The gold difference a team has at the 15 minute mark with respect to the enemy team.
-    - Encoding method: N/A
+    - Preprocessing: N/A
     - Motivation: From personal experience, XP leads dictate the pace of a lane. If a team has an overwhelming XP lead, they can gain control of the lanes and pressure turrets and objectives far easier than if XP was even. And unlike gold, XP doesn't have to be redeemed at base, so a team with an XP lead will always be able to push the advantage.
 
-### Model Results (accuracies are in terms of ROC-AOC accuracy):
+### Model Results (ROC-AUC Accuracies):
 
 |  Model Name     |   Train Acc.   |  Test Acc.  |
 | --------------- | -------------- | ----------- |
@@ -148,3 +154,56 @@ Our baseline models uses logistic regression to predict the win probability of a
 
 ### Model Analysis
 Training accuracy and testing accuracy being so tightly coupled suggests that our baseline model is underfitted. However, this makes perfect sense as it was made to be simple by design. As such, it might not have captured all of the feature vs. response relationships. Considering the intentional simplicity of the model and how we are restricted to just early-game metrics, the model in my opinion achieved a relatively strong performance. 
+
+---
+
+# 🏎️ Final Model 🏎️
+
+The final model is called `UltLogReg` and remains a **logistic regression** algorithm, albeit a far improved version compared to `BaselineLogReg` due to improved feature engineering and hyperparameter tuning.
+
+### Feature Selection & Engineering
+- `side` (*nominal*): Blue / Red.
+    - Preprocessing: `OneHotEncoder`
+    - Motivation: Summoner's Rift (competitive map) is not symmetric so I figured there would be some inbalance in a large dataset.
+- `golddiffat15` (*quantitative*): Gold difference for corresponding team @ 15 minutes.
+    - Preprocessing: `PolynomialFeatures` -> `StandardScaler`
+    - Motivation: Based on EDA above, gold difference seems to be strongly predictive of match outcome.
+- `xpdiffat15` (*quantitative*): XP difference for corresponding team @ 15 minutes.
+    - Preprocessing: `StandardScaler`
+    - Motivation: I extrapolated results from my notebook analysis, and also the `BaselineLogReg` results seems promising with XP difference despite my initial doubts. Might be slightly collinear with gold difference though.
+- `gold_delta` (*quantitative*): Difference between gold difference @ 10 and 15 minutes.
+    - Preprocessing: `golddiffat10`, `golddiffat15` -> `PolynomialFeatures` -> `StandardScaler`
+    - Motivation: I wanted to capture some of the signal from building gold lead spikes. These spikes (and drops) captures in-game momentums that can't be seen in other metrics.
+- `xp_delta` (*quantitative*): Difference between XP difference @ 10 and 15 minutes.
+    - Preprocessing: `xpdiffat10`, `xpdiffat15` -> `StandardScaler` 
+    - Motivation: Same as the above feature, although likely not as strong as a predictor. Additionally, this feature is probably multicollinear with a few others, haha.
+- `river` (*quantitative*): Custom formulated function that combines `firstherald` & `firstdragon`; denotes river control.
+    - Preprocessing: `1.25*firstherald` + `firstdragon` -> `StandardScaler`  
+    - Motivation: Found through EDA that river objective control correlates moderately with winning outcomes, with `firstherald` being slightly more impactful. So I came up with that equation.
+- `lane` (*quantitative*): Custom formulated function that combines `firsttower` & `firstblood`; denotes lane control.
+    - Preprocessing: `2.5*firsttower` + `firstblood` -> `StandardScaler`
+    - Motivation: Once again, EDA showed me that `firsttower` is an impactful predictor. `firstblood` is kind of just there, although both of them combined become a extremely strongly correlated with wins even if `firstblood` doesn't seem to be any good as a predictor.
+- `teamname` (*nominal*): The name of the team corresponding to the current record.
+    - Preprocessing: `TargetEncoder` -> `PolynomialFeatures`
+
+## Model Results (ROC-AUC Accuracies & Optimal Parameters) 
+
+|  Model Name  | Train Acc. | Test Acc.  | LogReg λ | gold_diff_poly | gold_delta_poly | teamname_poly |         
+| ------------ | ---------- | ---------- | -------- | -------------- | --------------- | ------------- |
+|  UltLogReg   |  0.844237  |  0.834024  |   10.0   |       1        |       2         |       3       |
+
+## Model Analysis
+At a quick glance, `UltLogReg` improved in both training and test ROC-AUC accuracy. Although it might be a tiny bit more overfitted than before (test acc. > train acc. by a bit), it's still within our comfortable "best fit" margin. Based on the optimal parameters and hyperparameters, `teamname` and metrics related to gold difference seem to the best predictive metrics. Gold difference being a strong predictor makes tons of sense, especially after all of the previous data analysis we did confirming it. But how did `teamname` manage to sneak in there? The answer is `TargetEncoder`. This transformation effectively encodes the win rate with respect to each category in `teamname` (e.g. each team) without response leakage. So in the end, the **most predictive pre/early-game metrics for match outcomes are team winrates and gold difference**. 
+
+## Comparison to BaselineLogReg (ROC-UAC Accuracies)
+
+|  Model Name  | Train Acc. | Test Acc.  | 
+| ------------ | ---------- | ---------- | 
+|  UltLogReg   |  0.844237  |  0.834024  |
+  ------------ | ---------- | ---------- | 
+|  BaseLogReg  |  0.828189  |  0.826455  |
+| ------------ | ---------- | ---------- |
+|  Difference  | +0.016048  | +0.007569  | 
+  ------------   ----------   ----------
+
+Overall, we achieved great improvement over with the final model. And in my opinion, close to the best possible results given the self-constraint features and dataset. How am I so sure? It is because I built a model that had a target variable as encoded as a feature and it performed only a bit better than this, haha.
