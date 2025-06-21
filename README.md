@@ -9,7 +9,7 @@
 ### Motivation
 League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we analyze the many different pre/early-game performance metrics in LoL games and their impact. Our ultimate objective is to find a combination of in-game factors that help us accurately predict game outcomes. These empirical insights offer fans and analysts a quantative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they are casual watchers or invested sportsbettors. 
 
-In particular, we will be investigating this overarching question: 
+In particular, we will be investigating this overarching question:   
 **which early-game (and implicitly, pre-game) metrics determine game outcomes?**
 
 ### Raw Dataset Structure
@@ -24,7 +24,7 @@ The 163 columns consists of:
 - Pre/post-game information (e.g., outcome, draft picks/bans, game duration)
 - In-game metrics (e.g., kills, gold earned, deaths)
 
-Relevant 31 columns to our stated question, in the context of only rows corresponding to teams:
+The relevant 31 columns to our stated question, in the context of only rows corresponding to teams:
 - `gameid`: Unique idenfier for the game.
 - `participantid`: Identifies players/teams given a `gameid`.
 - `teamname`: The name of the team. 
@@ -58,7 +58,7 @@ Relevant 31 columns to our stated question, in the context of only rows correspo
 
 ---
 
-# 🔎 Cleaning and Exploratory Data Analysis 🔎
+# 🔎 Cleaning & Exploratory Data Analysis 🔎
 
 ### Data Cleaning
 
@@ -106,7 +106,7 @@ As expected, there's a clear relationship between positive gold difference and w
 
 <iframe src="assets/bivar2.html" width="900" height="450" frameborder="0"></iframe>
 
-Here, we can see CS is moderately correlated with gold. Which is no surprise since it wouldn't be out of the ordinary at all if every winning metric somehow had a positive correlation with gold difference.
+Here, we can see XP is also moderately with wins. Which shouldn't be a surprised at all since securing gold usually comes with XP as well (CS, kills, etc.).
 
 Using my own heuristic, another metric that would lead to wins would be map/objective control. Although less quantifiable, securing early river objectives is by definition having control of the map and the objectives in it. Below is an attempt of illustrating map control in terms of early control of river objectives: a pivot table of winrates for teams that secure first river objectives.
 
@@ -125,8 +125,8 @@ Our objective now is to **PREDICT** a team's win probability based on early-game
 - Prediction Task Type: Non-binary Classification
 - Response Variable: win probability `[0, 1]`
     - Motivation: win probability is linked to a lot of predictive tasks not just limited to League of Legends. For example, it has wide-ranging applications in betting and gambling.
-- Evaluation Metric: ROC-AUC.
-    - Motivation: Mainly because my response variable is already in the form needed for ROC-AUC. Although it's true that naive accuracy & confusion matrices provide a more easily interpretable performance metric, my predictive task doesn't have a fixed threshold. Therefore, ROC-AUC is still more robust/accurate for this use case and allows for more refined adjustments when developing the model.
+- Evaluation Metric: ROC-AUC
+    - Motivation: Mainly because my response variable is already lies on the codomain needed for ROC-AUC. Although it's true that naive accuracy & confusion matrices provide a more easily interpretable performance metric, my predictive task doesn't have a fixed threshold. Therefore, ROC-AUC is still more robust/accurate for this use case and allows for more refined adjustments when developing my models.
 - All features used will be pre/early-game metrics that can only be strictly observed before 'result', therefore this problem has to be prediction and not inference.
 
 ---
