@@ -197,10 +197,7 @@ At a quick glance, `UltLogReg` improved in both training and test ROC-AUC accura
 
 ## Comparison to BaselineLogReg (ROC-UAC Accuracies)
 
-| Model Name  | Train Acc. | Test Acc. |
-|-------------|-----------:|----------:|
-| UltLogReg   |    0.844237|   0.834024|
-| BaseLogReg  |    0.828189|   0.826455|
-| **Difference** | **+0.016048** | **+0.007569** |
+- Training accuracy gain: `+0.016048`
+- Testing accuracy gain: `+0.007569`
 
-Overall, we achieved great improvement over with the final model. And in my opinion, close to the best possible results given the self-constraint features and dataset. How am I so sure? It is because I built a model that had a target variable as encoded as a feature and it performed only a bit better than this, haha.
+However, for the features given to BaselineLogReg, it was better bit relative compared to `UltLogReg`. The final model seems to be a tad bit overfitted, likely due to the cubic term. More hyperparameter adjustment could certainly help, although the gain would still be pretty minimal. Overall, we achieved great improvement over with the final model. And in my opinion, close to the best possible results given the self-constraint features and dataset. How am I so sure? It is because I built a model that had a target variable as encoded as a feature and it performed only a bit better than this, haha.
