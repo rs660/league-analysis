@@ -200,7 +200,7 @@ At a quick glance, `UltLogReg` improved in both training and test ROC-AUC accura
 |  Model Name  | Train Acc. | Test Acc.  | 
 | ------------ | ---------- | ---------- | 
 |  UltLogReg   |  0.844237  |  0.834024  |
-  ------------ | ---------- | ---------- | 
+| ------------ | ---------- | ---------- | 
 |  BaseLogReg  |  0.828189  |  0.826455  |
 | ------------ | ---------- | ---------- |
 |  Difference  | +0.016048  | +0.007569  | 
