@@ -4,6 +4,8 @@
 
 ---
 
+*Analysis Link*: https://rs660.github.io/league-analysis/
+
 # 👋 Introduction 👋
 
 ### Motivation
