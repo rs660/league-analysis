@@ -1,10 +1,9 @@
 # FF15 or Winnable? Formulating League Of Legends Win Probability using Early Game Metrics
 
 **Author**: Alvin Hatcher (alvinhat@umich.edu)
+**Analysis Link**: https://rs660.github.io/league-analysis/
 
 ---
-
-*Analysis Link*: https://rs660.github.io/league-analysis/
 
 # 👋 Introduction 👋
 
