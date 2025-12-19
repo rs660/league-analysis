@@ -1,4 +1,4 @@
-# FF15 or Winnable? Formulating League Of Legends Win Probability using Early Game Metrics
+# FF15 or Winnable? Finding League Of Legends Win Probability using Early Game Metrics
 
 **Author**: Alvin Hatcher (alvinhat@umich.edu)
 
