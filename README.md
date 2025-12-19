@@ -12,7 +12,7 @@
 League of Legends (LoL) is a popular PC game played worldwide in the 5v5 MOBA genre. In this project, we analyze the many different pre/early-game performance metrics in LoL games and their impact. Our ultimate objective is to find a combination of in-game factors that help us accurately predict game outcomes. These empirical insights offer fans and analysts a quantitative view of optimal in-game strategy to win the game. Moreover, match outcome forecasting can help promote the video game by driving excitement among spectators, whether they are casual watchers or invested sports bettors. 
 
 In particular, we will be investigating this overarching question:   
-**which early-game (and implicitly, pre-game) metrics determine game outcomes?**
+**which early-game (pre-15 minutes and implicitly, pre-game) metrics determine game outcomes?**
 
 ### Raw Dataset Structure
 The dataset we are using is data from professional League of Legends matches in 2022. Sourced from [OraclesElixir](https://oracleselixir.com/), the dataset spans 150588 rows and 163 columns. 
@@ -161,7 +161,7 @@ Training accuracy and testing accuracy being so tightly coupled suggests that ou
 
 # 🏎️ Final Model 🏎️
 
-The final model is called `UltLogReg` and remains a **logistic regression** algorithm, albeit a far improved version compared to `BaselineLogReg` due to improved feature engineering and hyperparameter tuning.
+The final model is called `UltLogReg` and remains a **logistic regression** algorithm, albeit a far improved version compared to `BaselineLogReg` due to three reasons: 1) L2 regularization, 2) improved feature engineering, 3) aggressive hyperparameter tuning.
 
 ### Feature Selection & Engineering
 - `side` (*nominal*): Blue / Red.
@@ -195,7 +195,7 @@ The final model is called `UltLogReg` and remains a **logistic regression** algo
 |  UltLogReg   |  0.844237  |  0.834024  |   10.0   |       1        |       2         |       3       |
 
 ## Model Analysis
-At a quick glance, `UltLogReg` improved in both training and test ROC-AUC accuracy. Although it might be a tiny bit more overfitted than before (test acc. > train acc. by a bit), it's still within our comfortable "best fit" margin. Based on the optimal parameters and hyperparameters, `teamname` and metrics related to gold difference seem to be the best predictive metrics. Gold difference being a strong predictor makes tons of sense, especially after all of the previous data analysis we did confirming it. But how did `teamname` manage to sneak in there? The answer is `TargetEncoder`. This transformation effectively encodes the win rate with respect to each category in `teamname` (e.g. each team) without response leakage. So in the end, the **most predictive pre/early-game metrics for match outcomes are team winrates and gold difference**. 
+At a quick glance, `UltLogReg` improved in both training and test ROC-AUC accuracy. Although it might be a tiny bit more overfitted than before (test acc. > train acc. by a bit), it's still within our comfortable "best fit" margin. Based on the optimal parameters and hyperparameters, `teamname` and metrics related to gold difference seem to be the best predictive metrics. Gold difference being a strong predictor makes tons of sense, especially after all of the previous data analysis we did confirming it. But how did `teamname` manage to sneak in there? The answer is `TargetEncoder`. This transformation effectively encodes the win rate with respect to each category in `teamname` (e.g. each team) without response leakage. So in the end, the **most predictive pre/early-game (pre-15 minutes) metrics for match outcomes are team winrates and gold difference**. 
 
 ## Comparison to BaselineLogReg (ROC-UAC Accuracies)
 
